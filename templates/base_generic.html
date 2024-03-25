@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Your Site Title{% endblock title %}</title>
+    <title>{% block title %}Yindeed.com{% endblock title %}</title>
+    <!-- advised to put the static loading even before bootstrap link -->
+    {% load static %}
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include your stylesheet here if you have one -->
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+
 </head>
 <body>
     <div class="container-fluid">
@@ -32,6 +38,7 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 {% block content %}
                 <!-- Your page content goes here  -->
+                "content coming from base generic template"
                 {% endblock content %}
             </main>
         </div>
