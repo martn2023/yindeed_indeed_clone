@@ -1,0 +1,24 @@
+placeholder section for code that will go into the home.html template, but we cant put it there now because it will call upon a login url/view that doesnt exist
+
+
+
+                 <!-- Add other navigation items here -->
+                        <!--
+
+
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                Log out
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">
+                                Log in
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        -->

@@ -16,13 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.http import HttpResponse
+from django.http import HttpResponse #keep this here in case we want to use function-based view again?
+from core.views import home_view
+
+
+""" REPLACING THIS EXAMPLE OF FUNCTION-BASED VIEWS WITH CLASS BASED VIEW
 
 def home(request):
     return HttpResponse("home/index page")
 
+"""
+
 urlpatterns = [
-    path('', home, name = 'home'),
+    path('', home_view, name = 'home'),
     path('admin/', admin.site.urls),
     path('job_catalog/', include('job_catalog.urls')),
 ]

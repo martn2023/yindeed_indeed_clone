@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'job_catalog',  #custom app for holding job postings
+    'core',  #custom app for project-wide settings such as views
+    'job_catalog',  # custom app for holding job postings
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,8 +58,8 @@ ROOT_URLCONF = 'yindeed_proj_name.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #need to fill this out or else the program will assume ONLY app-specific templates
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #before next step of looking at app-specific templates, look at generic templates
+        'APP_DIRS': True, #this is default assumption, of looking at app-specific templates
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
