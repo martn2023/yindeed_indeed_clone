@@ -1,3 +1,7 @@
+#TODO: plan for mass-importing of company names + descriptions
+
+
+
 from django.contrib import admin
 from .models import EmployerOrganization
 

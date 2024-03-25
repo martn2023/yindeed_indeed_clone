@@ -1,0 +1,34 @@
+THESE ARE THINGS THAT ARE OUT OF SCOPE TODAY, BUT MAY COME INTO PLAY AS PRODUCT EVOLVES
+
+
+OVERALL:
+
+USER MANAGEMENT:
+
+1. Yindeed employees are conveniently designated as "is staff", but does that give them super admin powers?
+    At scale, we might want people who can't change the system settings, but can moderate:
+        removing a job posting with inappropriate materials
+        banning a user account
+
+
+EMPLOYER ORGS:
+    from yindeed side
+
+
+    from poster side
+        designating industries/or one single industry
+
+
+
+
+
+JOB POSTINGS
+    from poster side
+        setting a role within a certain function (mutually exclusive)
+
+
+
+    from seeker side
+        see jobs from orgs in a certain industry or within a certain function
+        reporting job posts
+

@@ -1,3 +1,6 @@
+#TODO: plan for industry tags, maybe so that users can only find orgs in their preferred industry
+
+
 from django.db import models
 # Create your models here.
 
