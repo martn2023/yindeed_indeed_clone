@@ -5,6 +5,9 @@ OVERALL:
 
 USER MANAGEMENT:
 
+what happens if a user is in 2 groups at once eg job seeker and job poster? i was advised that permission are additive
+
+
 1. Yindeed employees are conveniently designated as "is staff", but does that give them super admin powers?
     At scale, we might want people who can't change the system settings, but can moderate:
         removing a job posting with inappropriate materials
