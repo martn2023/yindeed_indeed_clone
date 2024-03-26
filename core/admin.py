@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_groups')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_groups')  #last dimension referenced below in a custom function
 
     def get_groups(self, obj):
         return ", ".join([group.name for group in obj.groups.all()])

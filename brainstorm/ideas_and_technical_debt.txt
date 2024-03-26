@@ -3,6 +3,10 @@ THESE ARE THINGS THAT ARE OUT OF SCOPE TODAY, BUT MAY COME INTO PLAY AS PRODUCT 
 
 OVERALL:
 
+USER PROFILES
+    this one, there's info that cuts across multiple job postings, that might help people speed up the multiple application process
+
+
 USER MANAGEMENT:
 
 what happens if a user is in 2 groups at once eg job seeker and job poster? i was advised that permission are additive
