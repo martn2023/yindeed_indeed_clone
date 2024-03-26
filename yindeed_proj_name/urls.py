@@ -28,7 +28,7 @@ def home(request):
 """
 
 urlpatterns = [
-    path('', home_view, name = 'home'),
+    path('', include('core.urls', namespace='core')),  # changed to include the URL patterns from core
     path('admin/', admin.site.urls),
-    path('job_catalog/', include('job_catalog.urls')),
+    path('jobs/', include('job_catalog.urls')),
 ]
