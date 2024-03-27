@@ -12,4 +12,10 @@ class EmployerOrganizationAdmin(admin.ModelAdmin):
 admin.site.register(EmployerOrganization, EmployerOrganizationAdmin)  #need this to tie whats in the models (1st arg) to what shows up in admin panel (2nd arg)
 
 
-admin.site.register(JobPosting)
+
+class JobPostingAdmin(admin.ModelAdmin):
+    list_display = ('id','title', 'organization', 'post_date', 'expiration_date', 'is_active')
+    list_filter = ('organization', 'post_date', 'expiration_date', 'is_active')
+    search_fields = ('title', 'organization__name')  # Assuming organization has a name field
+
+admin.site.register(JobPosting, JobPostingAdmin)
