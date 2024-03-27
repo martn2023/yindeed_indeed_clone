@@ -128,3 +128,6 @@ STATICFILES_DIRS = [BASE_DIR / 'static',]  #advised to use this for specifing th
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#without this code, a login would automatically redirect to root.com/account/profiles, and profiles is out of scope for the purposes of this project
+LOGIN_REDIRECT_URL = '/'
