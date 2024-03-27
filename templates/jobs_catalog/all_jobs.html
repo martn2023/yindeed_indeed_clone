@@ -1,0 +1,12 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>All Jobs</h2>
+    <ul>
+    {% for job_posting in job_postings_list %}
+        <li>{{ job_posting.id}}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
