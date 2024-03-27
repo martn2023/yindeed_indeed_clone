@@ -16,7 +16,7 @@ def home_view(request):
 class RegisterUserView(CreateView):   #view for account registration
     form_class = UserCreationForm
     template_name = 'core/user_registration.html'  # remember that we have a master templates folder at root level
-    success_url = reverse_lazy('core:login')  # attempting to redirect users to login page after successful registration, added /core directory above
+    success_url = reverse_lazy('core:login_start')  # attempting to redirect users to login page after successful registration, added /core directory above
 
 class LoginStartView(LoginView):   #view for attempting to authenticate
     template_name = 'core/user_login.html'  # remember that we have a master templates folder at root level
