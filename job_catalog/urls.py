@@ -7,4 +7,5 @@ app_name = 'job_catalog'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('all_companies/', views.display_all_companies, name='all_companies'),
 ]
