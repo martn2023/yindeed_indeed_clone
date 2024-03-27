@@ -131,3 +131,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #without this code, a login would automatically redirect to root.com/account/profiles, and profiles is out of scope for the purposes of this project
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'core:home' #overriding the urls manager in core app

@@ -20,3 +20,4 @@ class RegisterUserView(CreateView):   #view for account registration
 
 class LoginStartView(LoginView):   #view for attempting to authenticate
     template_name = 'core/user_login.html'  # remember that we have a master templates folder at root level
+
