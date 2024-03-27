@@ -26,6 +26,17 @@
                     Home
                 </a>
             </li>
+
+            <li role="separator" class="divider"></li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'job_catalog:all_companies' %}">
+                    All Companies
+                </a>
+            </li>
+
+            <li role="separator" class="divider"></li>
+
             <!-- Insert the authentication conditional here -->
             {% if request.user.is_authenticated %}
                 <form action="{% url 'core:logout' %}" method="post">

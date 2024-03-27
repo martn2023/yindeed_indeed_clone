@@ -1,0 +1,10 @@
+.sidebar {
+    border-right: 3px solid black; /* Makes the border black and 3px thick */
+}
+.divider {
+    height: 20px;
+    display: block;
+    clear: both;
+    background-color: red; /* Temporarily make the dividers red to see them */
+}
+
