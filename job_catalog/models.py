@@ -16,7 +16,7 @@ class EmployerOrganization(models.Model):
 
 
 class JobPosting(models.Model):
-    organization = models.ForeignKey(EmployerOrganization, on_delete=models.CASCADE)  #we wanted cascaded deletion but FYI django requires explicit selection of on_delete
+    organization = models.ForeignKey(EmployerOrganization, on_delete=models.CASCADE, default = 1)  #we wanted cascaded deletion but FYI django requires explicit selection of on_delete
     title = models.CharField(max_length=100)
     role_overview = models.TextField()
     role_requirements_and_preferences = models.TextField()
