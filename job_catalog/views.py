@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404  #test this to see error message
+
 from django.http import HttpResponse
 
 from .models import EmployerOrganization, JobPosting #have to pull from the models to list them all
@@ -17,3 +19,10 @@ def display_all_jobs(request):
     all_jobs = JobPosting.objects.all()
     context = {'job_postings_list': all_jobs}  # we are declaring, not pulling variables here
     return render(request, 'jobs_catalog/all_jobs.html' ,context)
+
+
+
+def job_details(request, job_id):
+    job_instance = get_object_or_404(JobPosting, pk = job_id)  #where is job_id coming from? django built in language? i think it's drawing from the URL
+    context = {'job_instance': job_instance}  # we are declaring, not pulling variables here
+    return render(request, 'jobs_catalog/job_details.html' ,context)
