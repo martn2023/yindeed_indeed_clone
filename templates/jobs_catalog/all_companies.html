@@ -5,7 +5,9 @@
     <h2>All Companies</h2>
     <ul>
     {% for organization in organizations_list %}
-        <li>{{ organization.employer_org_name }}</li>
+        <li>
+            <a href = "{% url 'job_catalog:company_details' organization.id %}">{{ organization.employer_org_name }}</a>
+        </li>
     {% endfor %}
     </ul>
 </div>
