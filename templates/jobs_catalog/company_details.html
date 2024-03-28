@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ company_instance.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>{{ company_instance.employer_org_name }}</h3>
+
+    <p></p>
+    <p><strong>Company overview:</strong> {{ company_instance.employer_org_description_box }}</p>
+
+
+</div>
+{% endblock %}

@@ -5,7 +5,15 @@
     <h2>All Jobs</h2>
     <ul>
     {% for job_posting in job_postings_list %}
-        <li>{{ job_posting.id}}: {{ job_posting.title}} @ {{ job_posting.organization}}</li>
+        <li>
+            <a href="{% url 'job_catalog:job_details' job_posting.id %}">
+                {{ job_posting.id }}: {{ job_posting.title }}
+            </a>
+            @
+            <a href="{% url 'job_catalog:company_details' job_posting.organization.id %}">
+                {{ job_posting.organization.employer_org_name }}
+            </a>
+        </li>
     {% endfor %}
     </ul>
 </div>

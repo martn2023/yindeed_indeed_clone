@@ -21,8 +21,12 @@ def display_all_jobs(request):
     return render(request, 'jobs_catalog/all_jobs.html' ,context)
 
 
-
 def job_details(request, job_id):
     job_instance = get_object_or_404(JobPosting, pk = job_id)  #where is job_id coming from? django built in language? i think it's drawing from the URL
     context = {'job_instance': job_instance}  # we are declaring, not pulling variables here
     return render(request, 'jobs_catalog/job_details.html' ,context)
+
+def company_details(request, company_id):
+    company_instance = get_object_or_404(EmployerOrganization, pk = company_id)  #where is job_id coming from? django built in language? i think it's drawing from the URL
+    context = {'company_instance': company_instance}  # we are declaring, not pulling variables here
+    return render(request, 'jobs_catalog/company_details.html' ,context)
