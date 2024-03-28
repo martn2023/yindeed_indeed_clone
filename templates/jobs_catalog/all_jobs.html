@@ -5,7 +5,7 @@
     <h2>All Jobs</h2>
     <ul>
     {% for job_posting in job_postings_list %}
-        <li>{{ job_posting.id}}</li>
+        <li>{{ job_posting.id}}: {{ job_posting.title}} @ {{ job_posting.organization}}</li>
     {% endfor %}
     </ul>
 </div>
