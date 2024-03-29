@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, Group
 
 def auto_add_to_job_seekers_group(sender, instance, created, **kwargs):
     if created:
-        job_seekers_group, _ = Group.objects.get_or_create(name='Job Seekers')
+        job_seekers_group, _ = Group.objects.get_or_create(name='JobSeekers')
         instance.groups.add(job_seekers_group)
 
 # Connect the signal handling function to the post_save signal of the User model
