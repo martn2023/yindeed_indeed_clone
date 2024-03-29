@@ -5,13 +5,22 @@
 {% block content %}
 <div class="container">
     <h3>{{ job_instance.title }}</h3>
-    <p><strong>Organization:</strong> {{ job_instance.organization }}</p>
+    <h4><font color="#808080">{{ job_instance.organization }}</font></h4>
+    <br>
+    <p><strong>Role overview:</strong>
+        <br>
+        {{ job_instance.role_overview }}
+    </p>
 
-    <p><strong>Role overview:</strong> {{ job_instance.role_overview }}</p>
-    <p><strong>Requirements + Preferences:</strong> {{ job_instance.role_requirements_and_preferences }}</p>
-    <p><strong>Instructions:</strong> {{ job_instance.action_steps }}</p>
-    <p><strong>Posted On:</strong> {{ job_instance.post_date }}</p>
+    <p><strong>Requirements + Preferences:</strong>
+        <br>
+        {{ job_instance.role_requirements_and_preferences }}
+    </p>
 
-    <p><strong>Job Posting ID:</strong> {{ job_instance.id }}</p>
+    <p><strong>Instructions:</strong><br> {{ job_instance.action_steps }}<br></p>
+
+    <p><strong>Posted On:</strong> {{ job_instance.post_date }}<br></p>
+
+    <p><strong>Job Posting ID:</strong> {{ job_instance.id }}<br></p>
 </div>
 {% endblock %}
