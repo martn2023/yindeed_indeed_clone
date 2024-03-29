@@ -11,6 +11,7 @@ class EmployerOrganization(models.Model):
         default = 'Describe your organization, but not a specific role or requirements',
         blank = False  #we do not allow job posters to create employer orgs without a description
         )
+    representative_claim_token = models.CharField(max_length = 16, default = "join")
     def __str__(self):
         return self.employer_org_name
 
