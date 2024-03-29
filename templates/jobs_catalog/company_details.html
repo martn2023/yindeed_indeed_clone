@@ -1,14 +1,27 @@
 {% extends 'base_generic.html' %}
 
-{% block title %}{{ company_instance.title }}{% endblock %}
+{% block title %}{{ company_instance.employer_org_name }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h3>{{ company_instance.employer_org_name }}</h3>
-
-    <p></p>
+    <h1>{{ company_instance.employer_org_name }}</h1>
     <p><strong>Company overview:</strong> {{ company_instance.employer_org_description_box }}</p>
 
-
+    <!-- List of Job Postings for the company -->
+    <h2>Job Postings at {{ company_instance.employer_org_name }}</h2>
+    {% if job_postings %}
+        <ul>
+            {% for job in job_postings %}
+                <li>
+                    <strong>{{ job.title }}</strong><br>
+                    <p>{{ job.role_overview }}</p>
+                    <!-- Link to the detail view for the job if you have one -->
+                    <a href="{% url 'job_catalog:job_details' job.id %}">View Job</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ company_instance.employer_org_name }} has no active job postings at this time.</p>
+    {% endif %}
 </div>
 {% endblock %}
