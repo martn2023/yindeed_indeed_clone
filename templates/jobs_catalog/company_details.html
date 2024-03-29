@@ -5,23 +5,26 @@
 {% block content %}
 <div class="container">
     <h1>{{ company_instance.employer_org_name }}</h1>
-    <p><strong>Company overview:</strong> {{ company_instance.employer_org_description_box }}</p>
-
+    <br>
+    <h4>Company overview:</h4>
+    <p>{{ company_instance.employer_org_description_box }}</p>
+    <br><br>
     <!-- List of Job Postings for the company -->
-    <h2>Job Postings at {{ company_instance.employer_org_name }}</h2>
-    {% if job_postings %}
-        <ul>
-            {% for job in job_postings %}
-                <li>
-                    <strong>{{ job.title }}</strong><br>
-                    <p>{{ job.role_overview }}</p>
-                    <!-- Link to the detail view for the job if you have one -->
-                    <a href="{% url 'job_catalog:job_details' job.id %}">View Job</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <h4>Job Postings at {{ company_instance.employer_org_name }}</h4>
+    {% if total_job_postings == 0 %}
+        <p>{{ company_instance.employer_org_name }} hasn't posted their first job yet.</p>
     {% else %}
-        <p>{{ company_instance.employer_org_name }} has no active job postings at this time.</p>
+        <p>{{ company_instance.employer_org_name }} has posted {{ total_job_postings }} job{{ total_job_postings|pluralize }}, {{ active_job_postings }} of which {{ active_job_postings|pluralize:"is,are" }} still active.</p>
+        {% if job_postings %}
+            <ul>
+                {% for job in job_postings %}
+                    <li>
+                        <strong><a href="{% url 'job_catalog:job_details' job.id %}">{{ job.title }}</a></strong><br>
+                        <p>{{ job.role_overview }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}

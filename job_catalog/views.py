@@ -28,10 +28,14 @@ def job_details(request, job_id):
 
 def company_details(request, company_id):
     company_instance = get_object_or_404(EmployerOrganization, pk=company_id)
-    # Filter only active job postings for this company
+    total_job_postings = JobPosting.objects.filter(organization=company_instance).count()
+    active_job_postings = JobPosting.objects.filter(organization=company_instance, is_active=True).count()
     job_postings = JobPosting.objects.filter(organization=company_instance, is_active=True)
+
     context = {
         'company_instance': company_instance,
-        'job_postings': job_postings,  # Only active job postings
+        'job_postings': job_postings,
+        'total_job_postings': total_job_postings,  # Total number of jobs posted
+        'active_job_postings': active_job_postings,  # Number of active jobs
     }
     return render(request, 'jobs_catalog/company_details.html', context)
