@@ -45,12 +45,13 @@
 
             <!-- Insert the authentication conditional here -->
             {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:claim_organization' %}">
-                        Claim Organization
-                    </a>
-                </li>
-
+                {% if not is_job_poster %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'core:claim_organization' %}">
+                            Claim Organization
+                        </a>
+                    </li>
+                {% endif %}
 
                 <form action="{% url 'core:logout' %}" method="post">
                     {% csrf_token %}

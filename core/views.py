@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 from django.views import View
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
@@ -11,7 +12,15 @@ from django.core.exceptions import ValidationError
 
 
 def home_view(request):
-    return render(request, 'home.html')
+    # Initialize the context with `is_job_poster` set to False
+    context = {'is_job_poster': False}
+
+    # If the user is authenticated, check if they are in the 'JobPosters' group
+    if request.user.is_authenticated:
+        context['is_job_poster'] = request.user.groups.filter(name='JobPosters').exists()
+
+    # Render the template with the context
+    return render(request, 'home.html', context)
 
 
 class RegisterUserView(CreateView):
