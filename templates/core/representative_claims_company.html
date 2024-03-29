@@ -1,0 +1,28 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Claim an Organization</h2>
+    <p>Select your organization from the list and enter the claim token to confirm your representation.</p>
+
+    <form method="post" action="#">
+
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="org">Organization:</label>
+            <select name="organization" id="org" class="form-control">
+                {% for org in organizations %}
+                <option value="{{ org.id }}">{{ org.employer_org_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="token">Claim Token:</label>
+            <input type="password" name="claim_token" id="token" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Claim Organization</button>
+    </form>
+</div>
+{% endblock %}
