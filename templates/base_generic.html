@@ -4,19 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Yindeed.com{% endblock title %}</title>
-    <!-- Load static to use in links -->
     {% load static %}
-    <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include your custom stylesheet here -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Navigation panel -->
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <!-- Welcome message for authenticated users -->
                 {% if request.user.is_authenticated %}
                     <div class="welcome-message py-2 px-3">
                         LOGGED IN: {{ request.user.username }}
@@ -34,15 +29,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'job_catalog:all_jobs' %}">All jobs</a>
                         </li>
-                        <li role="separator" class="divider"></li>
                         <!-- Authentication conditional links -->
                         {% if request.user.is_authenticated %}
                             {% if not is_job_poster %}
+                                <!-- Employers only section -->
+                                <li class="nav-item sidebar-heading px-3 mt-4 mb-1 text-muted">
+                                    Employers only
+                                </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'core:claim_organization' %}">EMPLOYERS: Claim organization</a>
+                                    <a class="nav-link ml-3" href="{% url 'core:claim_organization' %}">Claim organization</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ml-3" href="{% url 'core:home' %}">Create organization</a>
                                 </li>
                             {% endif %}
-                            <!-- Styled logout button -->
                             <li class="nav-item">
                                 <form action="{% url 'core:logout' %}" method="post">
                                     {% csrf_token %}
@@ -60,8 +60,6 @@
                     </ul>
                 </div>
             </nav>
-
-            <!-- Main content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 {% block content %}
                 <!-- Page content goes here -->
@@ -69,8 +67,8 @@
             </main>
         </div>
     </div>
-
-    <!-- Bootstrap Javascript and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
