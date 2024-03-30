@@ -12,15 +12,12 @@ from django.core.exceptions import ValidationError
 
 
 def home_view(request):
-    # Initialize the context with `is_job_poster` set to False
+    """job_poster code now redundant because we made context processor in core app
     context = {'is_job_poster': False}
-
-    # If the user is authenticated, check if they are in the 'JobPosters' group
     if request.user.is_authenticated:
         context['is_job_poster'] = request.user.groups.filter(name='JobPosters').exists()
-
-    # Render the template with the context
-    return render(request, 'home.html', context)
+    """
+    return render(request, 'home.html')
 
 
 class RegisterUserView(CreateView):
@@ -53,6 +50,9 @@ class ClaimOrganizationView(View):
 
                 job_poster_group, _ = Group.objects.get_or_create(name='JobPosters')
                 request.user.groups.add(job_poster_group)
+
+                request.user.profile.organization = organization
+                request.user.profile.save()
 
                 return redirect('core:home')
             except EmployerOrganization.DoesNotExist:

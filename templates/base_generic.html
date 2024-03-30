@@ -14,9 +14,13 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 {% if request.user.is_authenticated %}
                     <div class="welcome-message py-2 px-3">
-                        LOGGED IN: {{ request.user.username }}
+                        <strong>{{ request.user.username }}</strong>
+                        {% if request.user.profile.organization %}
+                            ({{ request.user.profile.organization.employer_org_name }})
+                        {% endif %}
                     </div>
                 {% endif %}
+
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -34,13 +38,23 @@
                             {% if not is_job_poster %}
                                 <!-- Employers only section -->
                                 <li class="nav-item sidebar-heading px-3 mt-4 mb-1 text-muted">
-                                    Employers only
+                                    Prospective employers only:
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link ml-3" href="{% url 'core:claim_organization' %}">Claim organization</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link ml-3" href="{% url 'core:home' %}">Create organization</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item sidebar-heading px-3 mt-4 mb-1 text-muted">
+                                    Registered employers only:
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ml-3" href="{% url 'core:home' %}">View organization</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link ml-3" href="{% url 'core:home' %}">Leave organization</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item">
@@ -49,6 +63,7 @@
                                     <button type="submit" class="btn btn-link nav-link px-3">Logout</button>
                                 </form>
                             </li>
+
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'core:register' %}">Register</a>
