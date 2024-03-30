@@ -4,75 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Yindeed.com{% endblock title %}</title>
-    <!-- advised to put the static loading even before bootstrap link -->
+    <!-- Load static to use in links -->
     {% load static %}
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include your stylesheet here if you have one -->
-
+    <!-- Include your custom stylesheet here -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-
-
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Navigation panel -->
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <!-- Welcome message for authenticated users -->
+                {% if request.user.is_authenticated %}
+                    <div class="welcome-message py-2 px-3">
+                        LOGGED IN: {{ request.user.username }}
+                    </div>
+                {% endif %}
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                <a class="nav-link active" href="{% url 'core:home' %}">
-                    Home
-                </a>
-            </li>
-
-            <li role="separator" class="divider"></li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'job_catalog:all_companies' %}">
-                    All companies
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'job_catalog:all_jobs' %}">
-                    All jobs
-                </a>
-            </li>
-
-
-            <li role="separator" class="divider"></li>
-
-            <!-- Insert the authentication conditional here -->
-            {% if request.user.is_authenticated %}
-                {% if not is_job_poster %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'core:claim_organization' %}">
-                            Claim Organization
-                        </a>
-                    </li>
-                {% endif %}
-
-                <form action="{% url 'core:logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:register' %}">
-                        Register
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'core:login_start' %}">
-                        Login
-                    </a>
-                </li>
-            {% endif %}
-
-
-
-
+                            <a class="nav-link active" href="{% url 'core:home' %}">Home</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'job_catalog:all_companies' %}">All companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'job_catalog:all_jobs' %}">All jobs</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <!-- Authentication conditional links -->
+                        {% if request.user.is_authenticated %}
+                            {% if not is_job_poster %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'core:claim_organization' %}">Claim Organization</a>
+                                </li>
+                            {% endif %}
+                            <!-- Styled logout button -->
+                            <li class="nav-item">
+                                <form action="{% url 'core:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link nav-link px-3">Logout</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'core:register' %}">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'core:login_start' %}">Login</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>
@@ -80,16 +64,13 @@
             <!-- Main content -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 {% block content %}
-                <!-- Your page content goes here  -->
-                "content coming from base generic template"
+                <!-- Page content goes here -->
                 {% endblock content %}
             </main>
         </div>
     </div>
 
-    <!-- Include Bootstrap Javascript and dependencies -->
+    <!-- Bootstrap Javascript and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+    <
