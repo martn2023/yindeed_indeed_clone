@@ -42,23 +42,30 @@ class ClaimOrganizationView(View):
             org_id = request.POST.get('organization')
             claim_token = request.POST.get('claim_token')
             try:
-                organization = EmployerOrganization.objects.get(id=org_id)
-                if organization.representative_claim_token != claim_token:
+                new_organization = EmployerOrganization.objects.get(id=org_id)
+                current_org = request.user.profile.organization
+
+                # Check if the user is already tied to an organization
+                if current_org:
+                    # User is already representing an organization
+                    messages.error(request,
+                                   f"You are already tied to {current_org.employer_org_name} and need to leave that organization before representing {new_organization.employer_org_name}.")
+                    return redirect('core:claim_organization')
+
+                if new_organization.representative_claim_token == claim_token:
+                    job_poster_group, _ = Group.objects.get_or_create(name='JobPosters')
+                    request.user.groups.add(job_poster_group)
+
+                    request.user.profile.organization = new_organization
+                    request.user.profile.save()
+                    return redirect('core:home')
+                else:
                     messages.error(request, "CLAIM REJECTED: Incorrect password.")
-                    organizations = EmployerOrganization.objects.all()
-                    return render(request, self.template_name, {'organizations': organizations})
+                    return render(request, self.template_name, {'organizations': EmployerOrganization.objects.all()})
 
-                job_poster_group, _ = Group.objects.get_or_create(name='JobPosters')
-                request.user.groups.add(job_poster_group)
-
-                request.user.profile.organization = organization
-                request.user.profile.save()
-
-                return redirect('core:home')
             except EmployerOrganization.DoesNotExist:
                 messages.error(request, "CLAIM REJECTED: Organization not found.")
         else:
             messages.warning(request, "You must be logged in to claim an organization.")
 
-        organizations = EmployerOrganization.objects.all()
-        return render(request, self.template_name, {'organizations': organizations})
+        return render(request, self.template_name, {'organizations': EmployerOrganization.objects.all()})
