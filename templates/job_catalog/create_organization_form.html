@@ -2,10 +2,22 @@
 
 {% block content %}
 <div class="container">
-    <h1>Create New Organization</h1>
+    <h1 class="mt-4">Tell us about your unlisted organization!</h1>
     <form method="post" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-group">
+            <label for="employer_org_name">Employer Org Name:</label>
+            <input type="text" class="form-control" id="employer_org_name" name="employer_org_name">
+        </div>
+        <div class="form-group">
+            <label for="employer_org_description_box">Employer Org Description Box:</label>
+            <textarea class="form-control" id="employer_org_description_box" name="employer_org_description_box"></textarea>
+        </div>
+      <div class="form-group">
+          <label for="representative_claim_token">Representative Claim Token:</label>
+          <input type="text" class="form-control" id="representative_claim_token" name="representative_claim_token" style="width: 30%;" placeholder="Enter token">
+      </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
