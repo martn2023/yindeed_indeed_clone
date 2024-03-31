@@ -1,0 +1,12 @@
+{% extends 'base_generic.html' %}  <!-- Replace with your actual base template name -->
+
+{% block content %}
+<div class="container">
+    <h1>Create New Organization</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

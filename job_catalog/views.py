@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404  #test this to see error message
+from django.shortcuts import redirect #i think this is leveraged in the create_org function
+
+from django.contrib import messages
+
+from .forms import EmployerOrganizationForm
 
 from django.http import HttpResponse
 
 from .models import EmployerOrganization, JobPosting #have to pull from the models to list them all
+from core.models import UserProfile
+
 
 def index(request):
     return HttpResponse("Job Catalog app section")
@@ -39,3 +46,30 @@ def company_details(request, company_id):
         'active_job_postings': active_job_postings,  # Number of active jobs
     }
     return render(request, 'job_catalog/company_details.html', context)
+
+
+def create_organization(request):
+    # Check if the user is logged in and doesn't already belong to an organization
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to create an organization.")
+        return redirect('core:login_start')
+
+    user_profile = UserProfile.objects.get(user=request.user)
+    if user_profile.organization:
+        org_name = user_profile.organization.employer_org_name
+        messages.error(request,
+                       f"You cannot create a company since you are currently representing {org_name} for hiring.")
+        return redirect('job_catalog:index')  # Adjust as needed
+
+    if request.method == 'POST':
+        form = EmployerOrganizationForm(request.POST)
+        if form.is_valid():
+            new_organization = form.save()
+            user_profile.organization = new_organization
+            user_profile.save()
+            messages.success(request, "Organization created successfully.")
+            return redirect('job_catalog:index')  # Redirect to an appropriate page
+    else:
+        form = EmployerOrganizationForm()
+
+    return render(request, 'job_catalog/create_organization_form.html', {'form': form})
