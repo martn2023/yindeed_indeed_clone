@@ -1,11 +1,9 @@
-# THIS IS INTENTIONALLY LEFT BLANK FOR NOW
-
-
 # job_applications/urls.py
 
 from django.urls import path
-from . import views  # Import any views you want to include
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    # Define your URL patterns here if needed
+    path('', RedirectView.as_view(url='/'), name='redirect_to_home'),
+    #path('apply/<int:job_posting_id>/', apply_for_job, name='apply_for_job'),
 ]
