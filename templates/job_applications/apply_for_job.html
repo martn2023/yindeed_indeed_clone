@@ -1,16 +1,48 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if form.errors %}
-        <div class="errors">
-            <p>Please correct the errors below:</p>
-            {{ form.non_field_errors }}
-            {% for field in form %}
-                {% if field.errors %}
-                    {{ field.errors }}
-                {% endif %}
-            {% endfor %}
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Display the job title -->
+    <h3>Applying for:</h3>
+    <br>
+    <!-- Display the organization name -->
+    <h4>{{ job_posting.title }}</h4> <h4 style="color: #808080;">({{ job_posting.organization.employer_org_name }})</h4>
+    <br>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.job_posting_id.as_hidden }}
+
+        <!-- Display job title and organization name as hidden fields -->
+        <input type="hidden" name="job_posting" value="{{ job_posting.id }}">
+
+        <!-- Display LinkedIn URL field -->
+        <div class="form-group">
+            <label for="id_linkedin_url">LinkedIn URL:</label>
+            <br>
+            {{ form.linkedin_url }}
         </div>
-    {% endif %}
-    <button type="submit">Submit Application</button>
-</form>
+
+        <!-- Display phone number field -->
+        <div class="form-group">
+            <label for="id_phone_number">Phone Number:</label>
+            <br>
+            {{ form.phone_number }}
+        </div>
+
+        <!-- Display email address field -->
+        <div class="form-group">
+            <label for="id_email_address">Email Address:</label>
+            <br>
+            {{ form.email_address }}
+        </div>
+
+        <!-- Automatically pass user information -->
+        <input type="hidden" name="user" value="{{ request.user.id }}">
+
+        <br> <!-- Add a line break -->
+
+        <button type="submit" class="btn btn-primary">Submit Application</button>
+    </form>
+</div>
+{% endblock %}

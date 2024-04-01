@@ -9,7 +9,7 @@ class JobApplication(models.Model):
     resume = models.FileField(upload_to='resumes/', null=True, blank=True)
     linkedin_url = models.URLField(max_length=250, blank=True)  # Optional LinkedIn profile URL
     portfolio_url = models.URLField(max_length=250, blank=True)  # Optional portfolio website URL
-    application_email = models.EmailField(max_length=50)  # Required email address for the application
+    email_address = models.EmailField(max_length=50)  # Required email address for the application
     phone_number = models.CharField(max_length=20)  # Required phone number
 
     def __str__(self):
