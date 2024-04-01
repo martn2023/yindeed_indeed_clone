@@ -6,42 +6,47 @@
     <h3>Applying for:</h3>
     <br>
     <!-- Display the organization name -->
-    <h4>{{ job_posting.title }}</h4> <h4 style="color: #808080;">({{ job_posting.organization.employer_org_name }})</h4>
+    <h4>{{ job_posting.title }} <span style="color: #808080;">({{ job_posting.organization.employer_org_name }})</span></h4>
     <br>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="{% url 'job_applications:apply_for_job' job_posting_id=job_posting.id %}">
         {% csrf_token %}
-        {{ form.job_posting_id.as_hidden }}
-
-        <!-- Display job title and organization name as hidden fields -->
+        <!-- Hidden fields -->
+        {{ form.job_posting_id }}
         <input type="hidden" name="job_posting" value="{{ job_posting.id }}">
+        <input type="hidden" name="user" value="{{ request.user.id }}">
 
-        <!-- Display LinkedIn URL field -->
+        <!-- LinkedIn URL -->
         <div class="form-group">
             <label for="id_linkedin_url">LinkedIn URL:</label>
             <br>
             {{ form.linkedin_url }}
         </div>
 
-        <!-- Display phone number field -->
+        <!-- Phone number -->
         <div class="form-group">
             <label for="id_phone_number">Phone Number:</label>
             <br>
             {{ form.phone_number }}
         </div>
 
-        <!-- Display email address field -->
+        <!-- Email address -->
         <div class="form-group">
             <label for="id_email_address">Email Address:</label>
             <br>
             {{ form.email_address }}
         </div>
 
-        <!-- Automatically pass user information -->
-        <input type="hidden" name="user" value="{{ request.user.id }}">
+        <!-- Resume upload -->
+        <div class="form-group">
+            <label for="id_resume">Resume (PDF):</label>
+            <br>
+            {{ form.resume }}
+        </div>
 
-        <br> <!-- Add a line break -->
+        <br> <!-- Line break -->
 
+        <!-- Submit button -->
         <button type="submit" class="btn btn-primary">Submit Application</button>
     </form>
 </div>
