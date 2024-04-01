@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Consider Leaving Organization{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Leaving organization: {{ request.user.profile.organization.employer_org_name }}</h2>
+    <br>
+    <p>Before you leave <strong>{{ request.user.profile.organization.employer_org_name }}</strong>, please consider the following:</p>
+    <ul>
+        <li>You will no longer be able to post jobs on behalf of this organization.</li>
+        <li>You will lose access to any job applications or applicant information tied to the organization.</li>
+    </ul>
+    <p>If you have the necessary claim token, you can always rejoin this or another organization in the future.</p>
+
+    <div class="my-4">
+        <form action="{% url 'core:left_organization_confirmation' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirm Leave</button>
+            <a href="{% url 'core:home' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -69,3 +69,37 @@ class ClaimOrganizationView(View):
             messages.warning(request, "You must be logged in to claim an organization.")
 
         return render(request, self.template_name, {'organizations': EmployerOrganization.objects.all()})
+
+
+def before_leaving_organization(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to access this page.")
+        return redirect('core:login_start')  # Ensure this matches your login view's URL name
+
+    if not request.user.profile.organization:
+        messages.error(request, "You are not currently associated with any organization.")
+        return redirect('core:home')
+
+    return render(request, 'core/before_leaving_organization.html')
+
+def leave_organization_confirmed(request):
+    # Manually check if the user is authenticated
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to perform this action.")
+        return redirect('core:login_start')  # Redirect to your login view
+
+    user_profile = request.user.profile
+    if user_profile.organization:
+        # Detach the user from their current organization
+        user_profile.organization = None
+        user_profile.save()
+
+        # Optionally, remove the user from the JobPosters group
+        job_posters_group = Group.objects.get(name='JobPosters')
+        job_posters_group.user_set.remove(request.user)
+
+        messages.success(request, "You have successfully left the organization.")
+    else:
+        messages.info(request, "You are not currently associated with any organization.")
+
+    return redirect('core:home')  # Redirect to a safe landing page after the action

@@ -51,10 +51,10 @@
                                     Registered employers only:
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link ml-3" href="{% url 'core:home' %}">View organization</a>
+                                    <a class="nav-link ml-3" href="{% url 'job_catalog:company_details' company_id=request.user.profile.organization.id %}">View organization</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link ml-3" href="{% url 'core:home' %}">Leave organization</a>
+                                    <a class="nav-link ml-3" href="{% url 'core:leaving_organization' %}">Leave organization</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item">
