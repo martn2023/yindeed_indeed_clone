@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'core',  #custom app for project-wide settings such as views
     'job_catalog',  # custom app for holding job postings
+    'job_applications', #custom app for holdin job applications
+
 
     'django.contrib.admin',
     'django.contrib.auth',
