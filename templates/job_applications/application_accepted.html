@@ -1,0 +1,28 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Application submitted!</h2>
+    <br>
+    <p>
+        Thank you for applying to the position of
+        <a href="{% url 'job_catalog:job_details' job_id=application.job_posting.id %}">
+            <strong>{{ application.job_posting.title }}</strong>
+        </a> at
+        <a href="{% url 'job_catalog:company_details' company_id=application.job_posting.organization.id %}">
+            {{ application.job_posting.organization.employer_org_name }}
+        </a>.
+    </p>
+    <p>Your application has been received.</p>
+
+    <p class="text-secondary" style="font-size: 0.9em;">
+        This job posting code is: {{ application.job_posting.id }}<br>
+        Your job application code: {{ application.id }}
+    </p>
+
+    <div class="mt-5">
+        <!-- The URL 'job_applications:submitted_applications' will need to be created -->
+        <a href="#" class="btn btn-outline-secondary disabled" aria-disabled="true">Submitted Applications</a>
+    </div>
+</div>
+{% endblock %}
