@@ -14,4 +14,4 @@ def apply_for_job(request, job_posting_id):
     else:
         form = JobApplicationForm()
 
-    return render(request, 'apply_for_job.html', {'form': form})
+    return render(request, 'job_applications/apply_for_job.html', {'form': form})
