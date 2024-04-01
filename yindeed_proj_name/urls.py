@@ -31,4 +31,5 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),  # changed to include the URL patterns from core
     path('admin/', admin.site.urls),
     path('jobs/', include('job_catalog.urls')),
+    path('job_applications/', include('job_applications.urls')),
 ]
