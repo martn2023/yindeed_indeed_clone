@@ -6,7 +6,7 @@
     <h3>Applying for:</h3>
     <br>
     <!-- Display the organization name -->
-    <h4>{{ job_posting.title }} <span style="color: #808080;">({{ job_posting.organization.employer_org_name }})</span></h4>
+    <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a> <span style="color: #808080;">({{ job_posting.organization.employer_org_name }})</span></h4>
     <br>
 
     <form method="post" enctype="multipart/form-data" action="{% url 'job_applications:apply_for_job' job_posting_id=job_posting.id %}">
