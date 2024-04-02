@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Unauthorized Access</h4>
+        {% if request.user.is_authenticated %}
+            <p>{{ request.user.username }} lacks permission to see applicant info.</p>
+        {% else %}
+            <p>You do not have permission to view applicant info. If you believe this is an error, please <a href="{% url 'core:login' %}">log in</a> first.</p>
+        {% endif %}
+        <hr>
+        <p class="mb-0">Click <a href="{% url 'core:home' %}">here</a> to return to the homepage.</p>
+    </div>
+</div>
+{% endblock %}

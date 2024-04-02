@@ -64,3 +64,28 @@ def my_job_applications(request):
         'applications_grouped': dict(applications_grouped)
     }
     return render(request, 'job_applications/users_job_applications.html', context)
+
+
+def view_applications_for_employer(request):
+    if not request.user.is_authenticated:
+        return redirect('core:login_start')  # Redirect unauthenticated users to login page
+
+    # Assuming the User model has a one-to-one link to a UserProfile model, which in turn is linked to an EmployerOrganization.
+    if hasattr(request.user, 'userprofile') and request.user.userprofile.organization:
+        employer_org = request.user.userprofile.organization
+        job_postings = JobPosting.objects.filter(organization=employer_org)
+        job_applications = JobApplication.objects.filter(job_posting__in=job_postings).select_related('user').order_by('-submit_date')
+
+        applications_grouped_by_job = defaultdict(list)
+        for application in job_applications:
+            applications_grouped_by_job[application.job_posting].append(application)
+
+        context = {
+            'applications_grouped_by_job': dict(applications_grouped_by_job),
+            'employer_org': employer_org,  # you can pass the organization to the template if needed
+        }
+        return render(request, 'job_applications/employer_applications.html', context)
+    else:
+        # If the user is not linked to any organization or not an employer
+        # You can choose to redirect them or simply show an error page
+        return render(request, 'job_applications/unauthorized.html')  # Make sure to create this template or handle accordingly
