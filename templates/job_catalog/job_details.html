@@ -5,22 +5,28 @@
 {% block content %}
 <div class="container">
     <h3>{{ job_instance.title }}</h3>
-    <h4><font color="#808080">{{ job_instance.organization }}</font></h4>
+    <h4><span style="color: #808080;">{{ job_instance.organization }}</span></h4>
     <br>
-    <p><strong>Role overview:</strong>
-        <br>
-        {{ job_instance.role_overview }}
-    </p>
+    <p><strong>Role overview:</strong><br>{{ job_instance.role_overview }}</p>
+    <p><strong>Requirements + Preferences:</strong><br>{{ job_instance.role_requirements_and_preferences }}</p>
+    <p><strong>Instructions:</strong><br>{{ job_instance.action_steps }}</p>
+    <p><strong>Posted On:</strong> {{ job_instance.post_date }}</p>
+    <p><strong>Job Posting ID:</strong> {{ job_instance.id }}</p>
 
-    <p><strong>Requirements + Preferences:</strong>
-        <br>
-        {{ job_instance.role_requirements_and_preferences }}
-    </p>
+    <!-- Consolidated user authentication and application status check -->
+    <br>
+    <br>
+    <br>
+    <br>
+    {% if user.is_authenticated %}
 
-    <p><strong>Instructions:</strong><br> {{ job_instance.action_steps }}<br></p>
-
-    <p><strong>Posted On:</strong> {{ job_instance.post_date }}<br></p>
-
-    <p><strong>Job Posting ID:</strong> {{ job_instance.id }}<br></p>
+        {% if user_has_applied %}
+            <p>You have already applied for this job on {{ application.submit_date }}.</p>
+        {% else %}
+            <a href="{% url 'job_applications:apply_for_job' job_posting_id=job_instance.id %}" class="btn btn-primary">Apply for This Job</a>
+        {% endif %}
+    {% else %}
+        <p>To apply for this role, <a href="{% url 'core:login_start' %}">log in</a> first.</p>
+    {% endif %}
 </div>
 {% endblock %}

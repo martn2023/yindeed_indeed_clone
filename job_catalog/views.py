@@ -10,6 +10,7 @@ from django.http import HttpResponse
 
 from .models import EmployerOrganization, JobPosting #have to pull from the models to list them all
 from core.models import UserProfile
+from job_applications.models import JobApplication  # Adjust the import path according to your project structure
 
 
 def index(request):
@@ -29,9 +30,23 @@ def display_all_jobs(request):
 
 
 def job_details(request, job_id):
-    job_instance = get_object_or_404(JobPosting, pk = job_id)  #where is job_id coming from? django built in language? i think it's drawing from the URL
-    context = {'job_instance': job_instance}  # we are declaring, not pulling variables here
-    return render(request, 'job_catalog/job_details.html' ,context)
+    job_instance = get_object_or_404(JobPosting, pk=job_id)
+    user_has_applied = False
+    application = None
+
+    if request.user.is_authenticated:
+        try:
+            application = JobApplication.objects.get(job_posting=job_instance, user=request.user)
+            user_has_applied = True
+        except JobApplication.DoesNotExist:
+            user_has_applied = False
+
+    context = {
+        'job_instance': job_instance,
+        'user_has_applied': user_has_applied,
+        'application': application,  # Optional: Only if you need more details from the application itself
+    }
+    return render(request, 'job_catalog/job_details.html', context)
 
 def company_details(request, company_id):
     company_instance = get_object_or_404(EmployerOrganization, pk=company_id)
