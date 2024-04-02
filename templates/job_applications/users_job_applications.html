@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>My Job Applications</h1>
+    {% for org, applications in applications_grouped.items %}
+        <h2>{{ org.employer_org_name }}</h2>
+        <ul>
+        {% for application in applications %}
+            <li>
+                <strong>{{ application.job_posting.title }}</strong> on {{ application.submit_date }}
+                <!-- Link to job details if needed -->
+                <!-- <a href="{% url 'job_catalog:job_details' job_id=application.job_posting.id %}">View Job</a> -->
+            </li>
+        {% endfor %}
+        </ul>
+    {% empty %}
+        <p>You have not applied for any jobs yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
