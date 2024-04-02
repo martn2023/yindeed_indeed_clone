@@ -10,9 +10,22 @@
     <h4>(<a href="{% url 'job_catalog:company_details' company_id=job_posting.organization.id %}" style="color: #808080;">{{ job_posting.organization.employer_org_name }}</a>)</h4>
     <br>
 
+    <!-- Display non-field errors -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <!-- The form for job application -->
     <form method="post" enctype="multipart/form-data" action="{% url 'job_applications:apply_for_job' job_posting_id=job_posting.id %}">
         {% csrf_token %}
+        <!-- Display errors for each field here, if any -->
+        {{ form.non_field_errors }}
+        {{ form.job_posting_id.errors }}
+        {{ form.user.errors }}
         <!-- Hidden fields for job_posting and user -->
         {{ form.job_posting_id }}
         <input type="hidden" name="job_posting" value="{{ job_posting.id }}">
@@ -21,29 +34,33 @@
         <!-- LinkedIn URL input -->
         <div class="form-group">
             <label for="id_linkedin_url">LinkedIn URL:</label>
-            <br>
             {{ form.linkedin_url }}
+            {{ form.linkedin_url.errors }}
+            <br>
         </div>
 
         <!-- Phone number input -->
         <div class="form-group">
             <label for="id_phone_number">Phone Number:</label>
-            <br>
             {{ form.phone_number }}
+            {{ form.phone_number.errors }}
+            <br>
         </div>
 
         <!-- Email address input -->
         <div class="form-group">
             <label for="id_email_address">Email Address:</label>
-            <br>
             {{ form.email_address }}
+            {{ form.email_address.errors }}
+            <br>
         </div>
 
         <!-- Resume upload input -->
         <div class="form-group">
             <label for="id_resume">Resume (PDF):</label>
-            <br>
             {{ form.resume }}
+            {{ form.resume.errors }}
+            <br>
         </div>
 
         <br> <!-- Line break -->
