@@ -29,6 +29,8 @@ class JobApplicationForm(forms.ModelForm):
         job_posting = cleaned_data.get('job_posting')
 
         if user and job_posting and JobApplication.objects.filter(user=user, job_posting=job_posting).exists():
-            # This will add a non-field error, you can change it to a field error if preferred
-            raise forms.ValidationError("You have already applied for this job.")
+            previous_application = JobApplication.objects.get(user=user, job_posting=job_posting)
+            previous_application_date = previous_application.submit_date.strftime("%B %d, %Y")
+            raise forms.ValidationError(f"{user.username} already applied for this job on {previous_application_date}")
+
         return cleaned_data
