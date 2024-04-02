@@ -2,42 +2,44 @@
 
 {% block content %}
 <div class="container">
-    <!-- Display the job title -->
+    <!-- Display the job title with a link to its details -->
     <h3>Applying for:</h3>
     <br>
-    <!-- Display the organization name -->
-    <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a> <span style="color: #808080;">({{ job_posting.organization.employer_org_name }})</span></h4>
+    <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a></h4>
+    <!-- Display the organization name with a link to its details -->
+    <h4>(<a href="{% url 'job_catalog:company_details' company_id=job_posting.organization.id %}" style="color: #808080;">{{ job_posting.organization.employer_org_name }}</a>)</h4>
     <br>
 
+    <!-- The form for job application -->
     <form method="post" enctype="multipart/form-data" action="{% url 'job_applications:apply_for_job' job_posting_id=job_posting.id %}">
         {% csrf_token %}
-        <!-- Hidden fields -->
+        <!-- Hidden fields for job_posting and user -->
         {{ form.job_posting_id }}
         <input type="hidden" name="job_posting" value="{{ job_posting.id }}">
         <input type="hidden" name="user" value="{{ request.user.id }}">
 
-        <!-- LinkedIn URL -->
+        <!-- LinkedIn URL input -->
         <div class="form-group">
             <label for="id_linkedin_url">LinkedIn URL:</label>
             <br>
             {{ form.linkedin_url }}
         </div>
 
-        <!-- Phone number -->
+        <!-- Phone number input -->
         <div class="form-group">
             <label for="id_phone_number">Phone Number:</label>
             <br>
             {{ form.phone_number }}
         </div>
 
-        <!-- Email address -->
+        <!-- Email address input -->
         <div class="form-group">
             <label for="id_email_address">Email Address:</label>
             <br>
             {{ form.email_address }}
         </div>
 
-        <!-- Resume upload -->
+        <!-- Resume upload input -->
         <div class="form-group">
             <label for="id_resume">Resume (PDF):</label>
             <br>
