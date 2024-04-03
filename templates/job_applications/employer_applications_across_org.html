@@ -9,7 +9,7 @@
     {% if applications_grouped_by_job %}
         {% for job_posting, applications in applications_grouped_by_job.items %}
             <div class="mt-4">
-                <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a></h4>
+                <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a> (#{{ job_posting.id }})</h4>
                 <p>Applications received: {{ applications|length }}</p>
                 <div>
                     {% if applications %}
