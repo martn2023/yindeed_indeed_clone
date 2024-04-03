@@ -73,3 +73,26 @@ def view_applications_for_employer(request):
         return render(request, 'job_applications/employer_applications.html', context)
     else:
         return render(request, 'job_applications/unauthorized.html')
+
+
+def employer_application_details(request, application_id):
+    if not request.user.is_authenticated:
+        return redirect('core:login_start')
+
+    try:
+        user_profile = request.user.profile
+    except UserProfile.DoesNotExist:
+        # If UserProfile doesn't exist for the user, show unauthorized access page
+        return render(request, 'job_applications/unauthorized.html', {
+            'message': 'You do not have permission to view this page.'
+        })
+
+    application = get_object_or_404(JobApplication, pk=application_id)
+
+    # Ensure the application belongs to a job posting of the employer's organization
+    if application.job_posting.organization == user_profile.organization:
+        return render(request, 'job_applications/employer_application_detail.html', {'application': application})
+    else:
+        return render(request, 'job_applications/unauthorized.html', {
+            'message': 'You do not have permission to view this application.'
+        })
