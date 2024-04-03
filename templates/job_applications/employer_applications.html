@@ -2,11 +2,15 @@
 
 {% block content %}
 <div class="container">
-    <h2>Applications for Your Job Postings</h2>
+    <h2>All applicants to <a href="{% url 'job_catalog:company_details' company_id=employer_org.id %}">{{ employer_org.employer_org_name }}</a></h2>
+    <!-- Company-wide total applications count -->
+    <p>Total applications received across all postings: {{ total_applications_count }}</p>
+    <hr> <!-- Line break after the title and total count -->
     {% if applications_grouped_by_job %}
         {% for job_posting, applications in applications_grouped_by_job.items %}
             <div class="mt-4">
-                <h4>Job Title: {{ job_posting.title }} (ID: {{ job_posting.id }})</h4>
+                <h4><a href="{% url 'job_catalog:job_details' job_id=job_posting.id %}">{{ job_posting.title }}</a></h4>
+                <p>Applications received: {{ applications|length }}</p>
                 <div>
                     {% if applications %}
                         <table class="table">
@@ -32,6 +36,7 @@
                     {% endif %}
                 </div>
             </div>
+            <hr> <!-- Line break after each job posting dataset -->
         {% endfor %}
     {% else %}
         <p>You currently have no applications for any of your job postings.</p>
