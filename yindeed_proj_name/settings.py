@@ -125,6 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static',]  #advised to use this for specifing the directory for project-wide static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'  #added before heroku load
 
 
 
