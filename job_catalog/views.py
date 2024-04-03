@@ -12,6 +12,7 @@ from .models import EmployerOrganization, JobPosting #have to pull from the mode
 from core.models import UserProfile
 from job_applications.models import JobApplication  # Adjust the import path according to your project structure
 
+from django.urls import reverse
 
 
 def index(request):
