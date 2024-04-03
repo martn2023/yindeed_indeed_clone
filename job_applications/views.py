@@ -4,6 +4,7 @@ from django.contrib import messages
 from collections import defaultdict
 from .forms import JobApplicationForm
 from .models import JobPosting, JobApplication
+from core.models import UserProfile
 
 
 def apply_for_job(request, job_posting_id):
@@ -70,9 +71,16 @@ def view_applications_for_employer(request):
     if not request.user.is_authenticated:
         return redirect('core:login_start')  # Redirect unauthenticated users to login page
 
+    print("User:", request.user.username)
+    print("Is Superuser:", request.user.is_superuser)
+    print("Has UserProfile:", hasattr(request.user, 'userprofile'))
+    print("Organization:", getattr(request.user.profile, 'organization', 'No organization'))
+
+
+
     # Assuming the User model has a one-to-one link to a UserProfile model, which in turn is linked to an EmployerOrganization.
-    if hasattr(request.user, 'userprofile') and request.user.userprofile.organization:
-        employer_org = request.user.userprofile.organization
+    if hasattr(request.user, 'profile') and request.user.profile.organization:
+        employer_org = request.user.profile.organization
         job_postings = JobPosting.objects.filter(organization=employer_org)
         job_applications = JobApplication.objects.filter(job_posting__in=job_postings).select_related('user').order_by('-submit_date')
 
