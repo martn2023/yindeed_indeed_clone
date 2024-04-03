@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base_generic.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="container mt-4">
+    <h2>Application #{{ application.id }}</h2>
+    <hr>
+    <div class="application-detail">
+        <p><strong>Applicant Username:</strong><br>{{ application.user.username }}</p>
+        <p><strong>LinkedIn URL:</strong><br><a href="{{ application.linkedin_url }}" target="_blank">{{ application.linkedin_url }}</a></p>
+        <p><strong>Email Address:</strong><br>{{ application.email_address }}</p>
+        <p><strong>Phone Number:</strong><br>{{ application.phone_number }}</p>
+        <p><strong>Submission Date:</strong><br>{{ application.submit_date|date:"Y-m-d H:i" }}</p>
+        {% if application.resume %}
+        <p><strong>Resume:</strong><br><a href="{{ application.resume.url }}" download>Download Resume</a></p>
+        {% else %}
+        <p><strong>Resume:</strong><br>Not provided</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'job_applications:employer_applications' %}" class="btn btn-primary mt-3">Applicants across whole company</a>
+</div>
+{% endblock content %}

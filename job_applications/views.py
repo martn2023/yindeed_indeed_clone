@@ -70,7 +70,7 @@ def view_applications_for_employer(request):
             'employer_org': employer_org,
             'total_applications_count': total_applications_count,
         }
-        return render(request, 'job_applications/employer_applications.html', context)
+        return render(request, 'job_applications/employer_applications_across_org.html', context)
     else:
         return render(request, 'job_applications/unauthorized.html')
 
