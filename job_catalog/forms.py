@@ -12,5 +12,5 @@ class EmployerOrganizationForm(forms.ModelForm):
 class JobPostingForm(forms.ModelForm):
     class Meta:
         model = JobPosting
-        fields = ['title', 'role_overview', 'role_requirements_and_preferences', 'action_steps', 'expiration_date', 'is_active']
-        # You can exclude 'organization' if you are handling it in your view.
+        fields = ['title', 'role_overview', 'role_requirements_and_preferences', 'action_steps', 'is_active']
+        # Exclude 'expiration_date' from the form

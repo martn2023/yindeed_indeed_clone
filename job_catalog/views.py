@@ -1,6 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404  #test this to see error message
-from django.shortcuts import redirect #i think this is leveraged in the create_org function
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib import messages
 
@@ -13,6 +11,7 @@ from core.models import UserProfile
 from job_applications.models import JobApplication  # Adjust the import path according to your project structure
 
 from django.urls import reverse
+from django.utils import timezone
 
 
 def index(request):
@@ -92,22 +91,33 @@ def create_organization(request):
     return render(request, 'job_catalog/create_organization_form.html', {'form': form})
 
 def create_job_posting(request):
-    # Check if user is authenticated
+    print("Entered create_job_posting view")
     if not request.user.is_authenticated:
-        return redirect(reverse('core:login_start'))
+        messages.error(request, "You must be logged in to post a job.")
+        return redirect('core:login_start')
 
-    # Check if user is associated with an organization
     if not hasattr(request.user, 'profile') or not request.user.profile.organization:
-        return render(request, 'job_applications/unauthorized.html')
+        messages.error(request, "You need to be associated with an organization to post a job.")
+        return redirect('/')  # Redirect to the home page if not associated with an organization
 
     if request.method == 'POST':
         form = JobPostingForm(request.POST)
+        print("Form created")
         if form.is_valid():
+            print("Form is valid")
             job_posting = form.save(commit=False)
-            job_posting.organization = request.user.profile.organization
+            job_posting.organization = request.user.profile.organization  # Associate the job posting with the organization
+            # Set the post date to now and calculate the expiration date
+            job_posting.post_date = timezone.now()
+            job_posting.expiration_date = timezone.now() + timezone.timedelta(days=90)
             job_posting.save()
+            print(f"Job Posting created with ID: {job_posting.id}")
             messages.success(request, 'Job posting created successfully.')
-            return redirect(reverse('job_applications:employer_applications'))
+            return redirect(reverse('job_catalog:job_details', args=[job_posting.id]))
+        else:
+            # This block will execute if form is not valid
+            print("Form is not valid")
+            print(form.errors)
     else:
         form = JobPostingForm()
 

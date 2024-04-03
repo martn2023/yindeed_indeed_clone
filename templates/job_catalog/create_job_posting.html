@@ -5,34 +5,37 @@
     <h2>Creating a new job posting</h2>
     <br>
     <form method="post">
-    {% csrf_token %}
-    <div class="form-field">
-        <strong>Title:</strong><br>
-        {{ form.title }}<br>
-        <br>
-        <br>
-    </div>
-    <div class="form-field">
-        <strong>Role Overview:</strong><br>
-        {{ form.role_overview }}<br>
-        <br>
-        <br>
-    </div>
-    <div class="form-field">
-        <strong>Role Requirements and Preferences:</strong><br>
-        {{ form.role_requirements_and_preferences }}<br>
-        <br>
-        <br>
-    </div>
-    <div class="form-field">
-        <strong>Action Steps:</strong><br>
-        {{ form.action_steps }}<br>
-        <br>
-        <br>
-    </div>
-    <!-- Since 'expiration_date' and 'is_active' are managed by the system, they are not included in the form -->
-    <button type="submit" class="btn btn-primary">Create new job posting</button>
-</form>
-
+        {% csrf_token %}
+        <div class="form-field">
+            <strong>Title:</strong><br>
+            {{ form.title }}<br>
+            <br>
+        </div>
+        <div class="form-field">
+            <strong>Role Overview:</strong><br>
+            {{ form.role_overview }}<br>
+            <br>
+        </div>
+        <div class="form-field">
+            <strong>Role Requirements and Preferences:</strong><br>
+            {{ form.role_requirements_and_preferences }}<br>
+            <br>
+        </div>
+        <div class="form-field">
+            <strong>Action Steps:</strong><br>
+            {{ form.action_steps }}<br>
+            <br>
+        </div>
+        <!-- Since 'expiration_date' and 'is_active' are managed by the system, they are not included in the form -->
+        <button type="submit" class="btn btn-primary">Create new job posting</button>
+    </form>
 </div>
+
+<style>
+    input[type='text'], textarea {
+        width: 100%; /* Or any other width you prefer */
+        max-width: 100%; /* To ensure it doesn't exceed the width of its container */
+    }
+</style>
+
 {% endblock content %}
