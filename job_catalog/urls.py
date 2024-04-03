@@ -14,4 +14,6 @@ urlpatterns = [
     path('company/<int:company_id>/', views.company_details, name='company_details'),
 
     path('new_org/', views.create_organization, name='create_organization'),
+
+    path('create_job/', views.create_job_posting, name='create_job_posting'),
 ]

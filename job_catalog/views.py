@@ -4,13 +4,14 @@ from django.shortcuts import redirect #i think this is leveraged in the create_o
 
 from django.contrib import messages
 
-from .forms import EmployerOrganizationForm
+from .forms import EmployerOrganizationForm, JobPostingForm
 
 from django.http import HttpResponse
 
 from .models import EmployerOrganization, JobPosting #have to pull from the models to list them all
 from core.models import UserProfile
 from job_applications.models import JobApplication  # Adjust the import path according to your project structure
+
 
 
 def index(request):
@@ -88,3 +89,25 @@ def create_organization(request):
         form = EmployerOrganizationForm()
 
     return render(request, 'job_catalog/create_organization_form.html', {'form': form})
+
+def create_job_posting(request):
+    # Check if user is authenticated
+    if not request.user.is_authenticated:
+        return redirect(reverse('core:login_start'))
+
+    # Check if user is associated with an organization
+    if not hasattr(request.user, 'profile') or not request.user.profile.organization:
+        return render(request, 'job_applications/unauthorized.html')
+
+    if request.method == 'POST':
+        form = JobPostingForm(request.POST)
+        if form.is_valid():
+            job_posting = form.save(commit=False)
+            job_posting.organization = request.user.profile.organization
+            job_posting.save()
+            messages.success(request, 'Job posting created successfully.')
+            return redirect(reverse('job_applications:employer_applications'))
+    else:
+        form = JobPostingForm()
+
+    return render(request, 'job_catalog/create_job_posting.html', {'form': form})
