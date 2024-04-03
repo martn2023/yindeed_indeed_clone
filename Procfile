@@ -1,1 +1,1 @@
-web: gunicorn yindeed.wsgi
+web: gunicorn yindeed_proj_name.wsgi
