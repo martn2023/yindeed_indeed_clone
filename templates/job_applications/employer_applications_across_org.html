@@ -26,7 +26,7 @@
                             <tbody>
                                 {% for application in applications %}
                                     <tr>
-                                        <td>{{ application.id }}</td>
+                                        <td><a href="{% url 'job_applications:employer_application_details' application_id=application.id %}">{{ application.id }}</a></td>
                                         <td>{{ application.user.username }}</td>
                                         <td>{{ application.submit_date|date:"Y-m-d H:i" }}</td>
                                     </tr>
@@ -38,7 +38,7 @@
                     {% endif %}
                 </div>
             </div>
-            <hr> <!-- Line break after each job posting dataset -->
+            <br>
         {% endfor %}
     {% else %}
         <p>You currently have no applications for any of your job postings.</p>

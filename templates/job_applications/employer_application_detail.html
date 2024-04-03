@@ -11,7 +11,7 @@
         <p><strong>Phone Number:</strong><br>{{ application.phone_number }}</p>
         <p><strong>Submission Date:</strong><br>{{ application.submit_date|date:"Y-m-d H:i" }}</p>
         {% if application.resume %}
-        <p><strong>Resume:</strong><br><a href="{{ application.resume.url }}" download>Download Resume</a></p>
+        <p><strong>Resume:</strong><br><a href="{{ application.resume.url }}" download>Download resume</a></p>
         {% else %}
         <p><strong>Resume:</strong><br>Not provided</p>
         {% endif %}
