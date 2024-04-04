@@ -16,20 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.http import HttpResponse #keep this here in case we want to use function-based view again?
-from core.views import home_view
-
-
-""" REPLACING THIS EXAMPLE OF FUNCTION-BASED VIEWS WITH CLASS BASED VIEW
-
-def home(request):
-    return HttpResponse("home/index page")
-
-"""
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('core.urls', namespace='core')),  # changed to include the URL patterns from core
+    path('', include('core.urls', namespace='core')),  # Include the URL patterns from the core app
     path('admin/', admin.site.urls),
     path('jobs/', include('job_catalog.urls')),
     path('job_applications/', include('job_applications.urls')),
 ]
+
+# This conditionally adds media URL patterns for development environment
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
