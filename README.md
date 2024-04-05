@@ -8,12 +8,12 @@ See a live demo hosted on Heroku at:
 My professional background is being a sales/finance/ops/product leader in startups. A year ago, I was completely non-technical. Although I had one prior CRUD/Django project under my belt:
 1. its production was carried by a Mozilla tutorial where I copy/pasted much of the code without understanding
 2. it only had one app, blurring the lines between app and project
-3. it had an uncommon file hierchary that blocked deployment 
+3. it had an uncommon file hierarchy that blocked deployment 
 
 In this project however, I:
 1. generated the entire idea alone: database models, back-end logic, and front-end interface
 2. coded out the entire project without assistance from another person or tutorial
-3. succesfully deployed the web site onto Heroku:
+3. successfully deployed the web site onto Heroku
  
 
 ## Idea summary:
