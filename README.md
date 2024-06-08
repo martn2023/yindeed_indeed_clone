@@ -1,4 +1,17 @@
-# Yindeed
+# Yindeed (Indeed.com clone)
+
+As a job-seeker, looking at available jobs before applying:
+![img.png](img.png)
+
+
+As an internal recruiter, browsing submitted job applications
+![img_1.png](img_1.png)
+
+
+As an internal recruiter, inspecting a specific applicant and his downloadable resume
+![img_2.png](img_2.png)
+
+
 See a live demo hosted on Heroku at:
 [https://yindeed-8a7537fcdc5b.herokuapp.com/](https://yindeed-8a7537fcdc5b.herokuapp.com/).
 
